@@ -3,14 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Footer from '../components/Footer.astro';
-import AcquisitionCta from '../components/AcquisitionCta.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { CF_IMAGES, SITE } from '../lib/site';
+import { CF_IMAGES } from '../lib/site';
 
-const trustPoints = (await getCollection('trustPoints')).sort(
-	(a, b) => a.data.order - b.data.order,
-);
 const marketStats = (await getCollection('marketStats')).sort(
 	(a, b) => a.data.order - b.data.order,
 );
@@ -323,41 +319,45 @@ const iconMap = {
 
 <script>
 	function initForm() {
-		const form = document.getElementById('inquiry-form');
-		const successState = document.getElementById('form-success');
+		const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+		const successState = document.getElementById('form-success') as HTMLElement | null;
 
 		if (!form) return;
 
-		form.addEventListener('submit', function (e) {
+		form.addEventListener('submit', function (e: SubmitEvent) {
 			e.preventDefault();
-			const submitBtn = form.querySelector('button[type="submit"]');
-			const originalText = submitBtn.innerHTML;
+			const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+			if (!submitBtn) return;
 
 			submitBtn.disabled = true;
 			submitBtn.innerHTML = `<span class="flex items-center justify-center gap-x-2"><svg class="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Processing...</span></span>`;
 
 			setTimeout(() => {
 				form.classList.add('hidden');
-				successState.classList.remove('hidden');
+				if (successState) successState.classList.remove('hidden');
 			}, 850);
 		});
 	}
 
-	function resetForm() {
-		const form = document.getElementById('inquiry-form');
-		const successState = document.getElementById('form-success');
+	(window as any).resetForm = function () {
+		const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+		const successState = document.getElementById('form-success') as HTMLElement | null;
+		if (!form || !successState) return;
 		successState.classList.add('hidden');
 		form.classList.remove('hidden');
 		form.reset();
-		const submitBtn = form.querySelector('button[type="submit"]');
+		const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+		if (!submitBtn) return;
 		submitBtn.disabled = false;
 		submitBtn.innerHTML = '<span>Submit Inquiry</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 6h16v12H4V6zm0 0l8 7 8-7"/></svg>';
-	}
+	};
 
 	function initSmoothScroll() {
-		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-			anchor.addEventListener('click', function (e) {
-				const targetId = this.getAttribute('href').substring(1);
+		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+			anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+				const href = this.getAttribute('href');
+				if (!href) return;
+				const targetId = href.substring(1);
 				const targetElement = document.getElementById(targetId);
 				if (targetElement) {
 					e.preventDefault();
