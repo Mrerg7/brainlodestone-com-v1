@@ -1,0 +1,57 @@
+---
+import Icon from './Icon.astro';
+import {
+	acquisitionMailto,
+	DEFAULT_MAIL_BODY,
+	DEFAULT_MAIL_SUBJECT,
+	SALES_EMAIL,
+} from '../lib/site';
+
+interface Props {
+	label: string;
+	variant?: 'primary' | 'secondary' | 'gradient' | 'outline';
+	size?: 'md' | 'lg';
+	class?: string;
+	showIcon?: boolean;
+}
+
+const {
+	label,
+	variant = 'primary',
+	size = 'md',
+	class: className = '',
+	showIcon = true,
+} = Astro.props;
+
+const href = acquisitionMailto(DEFAULT_MAIL_SUBJECT, DEFAULT_MAIL_BODY);
+
+const base =
+	'inline-flex items-center justify-center gap-3 font-semibold rounded-full transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400';
+
+const sizes = {
+	md: 'px-6 py-2.5 text-sm',
+	lg: 'px-9 py-4 text-base sm:text-lg',
+};
+
+const variants = {
+	primary:
+		'bg-white text-slate-900 hover:bg-slate-100 active:scale-[0.985] shadow-sm',
+	secondary:
+		'border border-white/30 hover:border-white/70 text-white',
+	gradient:
+		'bg-teal-400 hover:bg-teal-300 active:bg-white transition-all text-slate-950 shadow-xl shadow-teal-950/50',
+	outline:
+		'border border-white text-white hover:bg-white hover:text-black',
+};
+---
+
+<a
+	href={href}
+	class:list={[base, sizes[size], variants[variant], className]}
+	aria-label={`${label} — email ${SALES_EMAIL}`}
+>
+	<span>{label}</span>
+	{showIcon && variant === 'gradient' && <Icon name="lock" class="w-5 h-5" />}
+	{showIcon && variant === 'outline' && <Icon name="mail" class="w-5 h-5" />}
+	{showIcon && variant === 'primary' && <Icon name="arrow-right" class="w-5 h-5" />}
+</a>

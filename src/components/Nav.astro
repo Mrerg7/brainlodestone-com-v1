@@ -1,0 +1,112 @@
+---
+import AcquisitionCta from './AcquisitionCta.astro';
+import Icon from './Icon.astro';
+---
+
+<nav id="site-nav" class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur-lg transition-all">
+	<div class="max-w-screen-2xl mx-auto">
+		<div class="px-6 md:px-12 lg:px-16 py-5 flex items-center justify-between">
+			<a href="/" class="flex items-center gap-x-2.5" aria-label="brainlodestone.com home">
+				<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-inner">
+					<Icon name="magnet" class="w-6 h-6 text-slate-950" />
+				</div>
+				<div>
+					<span class="font-display text-2xl font-semibold tracking-tighter">brain</span>
+					<span class="font-display text-2xl font-semibold tracking-tighter text-teal-400">lodestone</span>
+					<span class="font-mono text-[10px] text-teal-400/70 align-super ml-0.5">.com</span>
+				</div>
+			</a>
+
+			<div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+				<a href="#opportunity" class="hover:text-teal-400 transition-colors">The Opportunity</a>
+				<a href="#science" class="hover:text-teal-400 transition-colors">The Science</a>
+				<a href="#why" class="hover:text-teal-400 transition-colors">Why This Domain</a>
+				<a href="#perfect-for" class="hover:text-teal-400 transition-colors">Perfect For</a>
+			</div>
+
+			<div class="flex items-center gap-x-3">
+				<AcquisitionCta
+					label="Acquire Domain"
+					variant="primary"
+					size="md"
+					showIcon={false}
+					class="!px-5 !py-2.5 !rounded-2xl !text-sm hidden sm:inline-flex"
+				/>
+				<!-- Mobile menu button -->
+				<button id="mobile-menu-btn"
+					class="md:hidden w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-900 rounded-2xl transition-colors"
+					aria-label="Toggle menu">
+					<svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+						<line x1="3" y1="6" x2="21" y2="6" />
+						<line x1="3" y1="12" x2="21" y2="12" />
+						<line x1="3" y1="18" x2="21" y2="18" />
+					</svg>
+					<svg id="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hidden">
+						<line x1="18" y1="6" x2="6" y2="18" />
+						<line x1="6" y1="6" x2="18" y2="18" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mobile menu -->
+	<div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-900 px-6 py-4">
+		<div class="flex flex-col gap-y-1 text-sm">
+			<a href="#opportunity" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-800">The Opportunity</a>
+			<a href="#science" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-800">The Science</a>
+			<a href="#why" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-800">Why This Domain</a>
+			<a href="#perfect-for" class="mobile-nav-link px-4 py-3 rounded-2xl hover:bg-slate-800">Perfect For</a>
+			<div class="pt-3 border-t border-slate-800 mt-2">
+				<AcquisitionCta
+					label="Acquire brainlodestone.com"
+					variant="primary"
+					size="md"
+					showIcon={false}
+					class="!w-full !py-3.5 !rounded-2xl"
+				/>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<script>
+	function initMobileMenu() {
+		const btn = document.getElementById('mobile-menu-btn');
+		const menu = document.getElementById('mobile-menu');
+		const menuIcon = document.getElementById('menu-icon');
+		const closeIcon = document.getElementById('close-icon');
+
+		if (!btn || !menu) return;
+
+		btn.addEventListener('click', () => {
+			const isOpen = !menu.classList.contains('hidden');
+			menu.classList.toggle('hidden');
+			if (isOpen) {
+				menuIcon?.classList.remove('hidden');
+				closeIcon?.classList.add('hidden');
+			} else {
+				menuIcon?.classList.add('hidden');
+				closeIcon?.classList.remove('hidden');
+			}
+		});
+
+		document.querySelectorAll('.mobile-nav-link').forEach(link => {
+			link.addEventListener('click', () => {
+				menu.classList.add('hidden');
+				menuIcon?.classList.remove('hidden');
+				closeIcon?.classList.add('hidden');
+			});
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+				menu.classList.add('hidden');
+				menuIcon?.classList.remove('hidden');
+				closeIcon?.classList.add('hidden');
+			}
+		});
+	}
+
+	initMobileMenu();
+</script>

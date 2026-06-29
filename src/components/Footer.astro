@@ -1,0 +1,95 @@
+---
+import AcquisitionCta from './AcquisitionCta.astro';
+import Icon from './Icon.astro';
+import { SALES_EMAIL, SITE } from '../lib/site';
+
+const disclaimerDate = 'June 1, 2026';
+---
+
+<footer id="contact" class="border-t border-slate-800 bg-slate-900">
+	<section class="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-20">
+		<div class="relative overflow-hidden rounded-[2rem] border border-teal-500/25 bg-gradient-to-br from-slate-950 via-teal-950/20 to-slate-900 p-8 md:p-12">
+			<div class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-teal-500/10 blur-3xl" aria-hidden="true"></div>
+			<div class="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" aria-hidden="true"></div>
+
+			<div class="relative grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+				<div>
+					<p class="text-xs font-semibold tracking-[3px] text-teal-400 uppercase mb-4">
+						Domain Acquisition
+					</p>
+					<h2 class="font-display text-4xl md:text-5xl tracking-tight leading-tight mb-4">
+						Own the definitive brand<br />
+						<span class="text-teal-400">for brain stimulation.</span>
+					</h2>
+					<p class="text-slate-400 text-lg max-w-xl leading-relaxed">
+						This premium <strong class="text-white font-semibold">.com</strong> asset is
+						available for direct acquisition. Serious buyers — flexible terms, escrow-ready
+						transfer, confidential process.
+					</p>
+
+					<div class="mt-6 flex flex-wrap gap-3">
+						<div class="px-4 py-1.5 rounded-full bg-slate-800 text-xs font-medium flex items-center gap-x-2">
+							<Icon name="check" class="w-4 h-4 text-teal-400" />
+							<span>Escrow-protected transfer</span>
+						</div>
+						<div class="px-4 py-1.5 rounded-full bg-slate-800 text-xs font-medium flex items-center gap-x-2">
+							<Icon name="check" class="w-4 h-4 text-teal-400" />
+							<span>Flexible payment terms</span>
+						</div>
+						<div class="px-4 py-1.5 rounded-full bg-slate-800 text-xs font-medium flex items-center gap-x-2">
+							<Icon name="check" class="w-4 h-4 text-teal-400" />
+							<span>Confidential inquiry</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="glass rounded-3xl p-6 md:p-8 border border-teal-500/20">
+					<div class="flex items-center gap-3 mb-5">
+						<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/30">
+							<Icon name="magnet" class="w-6 h-6 text-slate-950" />
+						</div>
+						<div>
+							<div class="text-sm text-slate-500 uppercase tracking-widest">Available Now</div>
+							<div class="font-display text-2xl tracking-tight">{SITE.domain}</div>
+						</div>
+					</div>
+
+					<a
+						href={`mailto:${SALES_EMAIL}?subject=${encodeURIComponent('brainlodestone.com — Domain Acquisition')}`}
+						class="block text-2xl md:text-3xl font-semibold text-white hover:text-teal-300 transition-colors break-all mb-6"
+					>
+						{SALES_EMAIL}
+					</a>
+
+					<AcquisitionCta
+						label="Inquire About This Domain"
+						variant="gradient"
+						size="lg"
+						class="w-full"
+					/>
+
+					<p class="mt-5 text-[11px] text-slate-500 text-center tracking-wide">
+						CONFIDENTIAL • SERIOUS ACQUIRERS ONLY • FLEXIBLE PAYMENT TERMS
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-12 pt-8 border-t border-slate-800 text-xs text-slate-500 space-y-6">
+			<p class="max-w-4xl leading-relaxed text-slate-400">
+				<strong class="text-slate-300">Disclaimer.</strong> This website is for demonstration and
+				informational purposes only. It does not constitute an offer of services, a commitment to
+				deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
+				technologies are based on publicly available information as of {disclaimerDate} and are
+				subject to change.
+			</p>
+
+			<div class="flex flex-col md:flex-row gap-y-4 items-start md:items-center justify-between">
+				<div>© {SITE.year} {SITE.name} — Premium domain offered for acquisition. All rights reserved.</div>
+				<div class="text-[10px] text-slate-600">
+					Available for immediate registration &amp; transfer
+				</div>
+			</div>
+		</div>
+	</section>
+</footer>

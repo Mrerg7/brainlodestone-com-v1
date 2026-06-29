@@ -1,0 +1,96 @@
+---
+import { CF_IMAGES, SALES_EMAIL, SITE } from '../lib/site';
+
+const website = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: SITE.name,
+	url: SITE.url,
+	description: SITE.description,
+	inLanguage: 'en-US',
+};
+
+const product = {
+	'@context': 'https://schema.org',
+	'@type': 'Product',
+	name: SITE.name,
+	description: SITE.description,
+	url: SITE.url,
+	image: CF_IMAGES.hero,
+	category: 'Premium Domain Name',
+	brand: {
+		'@type': 'Brand',
+		name: SITE.name,
+	},
+	offers: {
+		'@type': 'Offer',
+		url: SITE.url,
+		price: '0',
+		priceCurrency: 'USD',
+		availability: 'https://schema.org/InStock',
+		seller: {
+			'@type': 'Organization',
+			name: 'Desert Rich',
+			email: SALES_EMAIL,
+		},
+		shippingDetails: {
+			'@type': 'OfferShippingDetails',
+			shippingRate: {
+				'@type': 'MonetaryAmount',
+				value: '0.00',
+				currency: 'USD',
+			},
+			deliveryTime: {
+				'@type': 'ShippingDeliveryTime',
+				handlingTime: {
+					'@type': 'QuantitativeValue',
+					minValue: 0,
+					maxValue: 1,
+					unitCode: 'd',
+				},
+				transitTime: {
+					'@type': 'QuantitativeValue',
+					minValue: 0,
+					maxValue: 0,
+					unitCode: 'd',
+				},
+			},
+			shippingDestination: {
+				'@type': 'DefinedRegion',
+				addressCountry: 'US',
+			},
+		},
+		hasMerchantReturnPolicy: {
+			'@type': 'MerchantReturnPolicy',
+			returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+			returnMethod: 'https://schema.org/ReturnByMail',
+			returnFees: 'https://schema.org/FreeReturn',
+			applicableCountry: 'US',
+			merchantReturnDays: {
+				'@type': 'QuantitativeValue',
+				minValue: 0,
+				maxValue: 0,
+				unitCode: 'd',
+			},
+		},
+	},
+};
+
+const organization = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: SITE.name,
+	url: SITE.url,
+	logo: CF_IMAGES.hero,
+	contactPoint: {
+		'@type': 'ContactPoint',
+		contactType: 'domain acquisition',
+		email: SALES_EMAIL,
+		availableLanguage: 'English',
+	},
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(website)} />
+<script type="application/ld+json" set:html={JSON.stringify(product)} />
+<script type="application/ld+json" set:html={JSON.stringify(organization)} />

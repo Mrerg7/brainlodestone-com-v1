@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Space Grotesk", "Inter", sans-serif;
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		font-family: var(--font-sans);
+	}
+}
+
+@layer utilities {
+	.font-display {
+		font-family: var(--font-display);
+		font-weight: 600;
+	}
+
+	.premium-gradient {
+		background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+	}
+
+	.magnetic-accent {
+		color: #14b8a6;
+	}
+
+	.glass {
+		background: rgba(15, 23, 42, 0.8);
+		backdrop-filter: blur(20px);
+		border: 1px solid rgba(148, 163, 184, 0.1);
+	}
+
+	.hero-bg {
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+	}
+
+	.metric {
+		font-size: 2.35rem;
+		line-height: 1;
+		font-weight: 700;
+		transition: all 0.3s ease;
+	}
+
+	.benefit-card {
+		transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.benefit-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+	}
+
+	.nav-scrolled {
+		background: rgba(15, 23, 42, 0.97);
+		backdrop-filter: blur(24px);
+	}
+
+	.stat-number {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.domain-pill {
+		font-family: var(--font-display);
+		letter-spacing: -0.04em;
+	}
+
+	.clean-divider {
+		height: 1px;
+		background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.2), transparent);
+	}
+}

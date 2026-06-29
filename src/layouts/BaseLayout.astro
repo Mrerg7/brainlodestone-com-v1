@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+import StructuredData from '../components/StructuredData.astro';
+import { CF_IMAGES, SITE } from '../lib/site';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = `${SITE.name} • Premium Domain For Acquisition`,
+	description = SITE.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = CF_IMAGES.hero;
+const published = '2026-06-01';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={canonical} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={SITE.name} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:alt" content="brainlodestone.com — premium TMS & brain health domain branding" />
+		<meta property="og:locale" content={SITE.locale} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<meta name="theme-color" content="#020617" />
+		<meta name="author" content={SITE.name} />
+		<meta property="article:published_time" content={published} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="preconnect" href="https://imagedelivery.net" />
+
+		<StructuredData />
+		<slot name="head" />
+	</head>
+	<body class="bg-slate-950 text-slate-200 antialiased overflow-x-hidden">
+		<slot />
+		<script>
+			const nav = document.getElementById('site-nav');
+			if (nav) {
+				window.addEventListener('scroll', () => {
+					if (window.scrollY > 20) {
+						nav.classList.add('nav-scrolled', 'shadow-xl');
+					} else {
+						nav.classList.remove('nav-scrolled', 'shadow-xl');
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
