@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-const site = 'https://brainlodestone.com';
+const site = 'https://brainlodestone.com/';
 
 export default defineConfig({
 	site,

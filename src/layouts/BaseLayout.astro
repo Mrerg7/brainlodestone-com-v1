@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import StructuredData from '../components/StructuredData.astro';
-import { CF_IMAGES, SITE } from '../lib/site';
+import { CF_IMAGES, getCanonicalUrl, SITE } from '../lib/site';
 
 interface Props {
 	title?: string;
@@ -13,7 +13,7 @@ const {
 	description = SITE.description,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const canonical = getCanonicalUrl(Astro.url.pathname);
 const ogImage = CF_IMAGES.hero;
 const published = '2026-06-01';
 ---

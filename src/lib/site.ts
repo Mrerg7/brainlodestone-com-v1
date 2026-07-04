@@ -1,7 +1,7 @@
 export const SITE = {
 	name: 'brainlodestone.com',
 	domain: 'brainlodestone.com',
-	url: 'https://brainlodestone.com',
+	url: 'https://brainlodestone.com/',
 	tagline: 'The definitive digital address for the future of brain stimulation.',
 	description:
 		'Acquire brainlodestone.com — the perfect premium .com domain for Transcranial Magnetic Stimulation (TMS), neurotechnology, mental health clinics, and brain stimulation innovation. Instant brand authority in a rapidly growing market.',
@@ -17,6 +17,14 @@ export const CF_IMAGES = {
 	brand: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/83be0a60-8638-45d7-125c-d95aa4503200/public',
 	accountHash: '-sPAUAWeA405NiWJ0SNIQA',
 } as const;
+
+/** Normalize any path to the site's canonical absolute URL (https, apex, trailing slash). */
+export function getCanonicalUrl(pathname: string): string {
+	const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
+	const withTrailingSlash =
+		normalized === '/' || normalized.endsWith('/') ? normalized : `${normalized}/`;
+	return new URL(withTrailingSlash, SITE.url).href;
+}
 
 export function acquisitionMailto(subject?: string, body?: string): string {
 	const params = new URLSearchParams();
