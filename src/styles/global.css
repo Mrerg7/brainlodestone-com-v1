@@ -41,6 +41,13 @@
 		background-attachment: fixed;
 	}
 
+	@media (max-width: 767px) {
+		.hero-bg {
+			background-attachment: scroll;
+			background-position: top center;
+		}
+	}
+
 	.metric {
 		font-size: 2.35rem;
 		line-height: 1;
