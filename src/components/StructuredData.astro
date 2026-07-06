@@ -4,28 +4,31 @@ import { CF_IMAGES, SALES_EMAIL, SITE } from '../lib/site';
 const website = {
 	'@context': 'https://schema.org',
 	'@type': 'WebSite',
+	'@id': `${SITE.url}#website`,
 	name: SITE.name,
 	url: SITE.url,
 	description: SITE.description,
 	inLanguage: 'en-US',
 };
 
-const product = {
+const webPage = {
 	'@context': 'https://schema.org',
-	'@type': 'Product',
-	name: SITE.name,
-	description: SITE.description,
+	'@type': 'WebPage',
+	'@id': SITE.url,
+	name: `${SITE.name} • Premium Domain For Acquisition`,
 	url: SITE.url,
-	image: CF_IMAGES.hero,
-	category: 'Premium Domain Name',
-	brand: {
-		'@type': 'Brand',
+	description: SITE.description,
+	inLanguage: 'en-US',
+	isPartOf: { '@id': `${SITE.url}#website` },
+	about: {
+		'@type': 'Thing',
 		name: SITE.name,
+		description: SITE.description,
 	},
-	offers: {
+	mainEntity: {
 		'@type': 'Offer',
+		name: `${SITE.name} domain name`,
 		url: SITE.url,
-		price: '0',
 		priceCurrency: 'USD',
 		availability: 'https://schema.org/InStock',
 		seller: {
@@ -33,37 +36,12 @@ const product = {
 			name: 'Desert Rich',
 			email: SALES_EMAIL,
 		},
-		shippingDetails: {
-			'@type': 'OfferShippingDetails',
-			shippingRate: {
-				'@type': 'MonetaryAmount',
-				value: '0.00',
-				currency: 'USD',
-			},
-			deliveryTime: {
-				'@type': 'ShippingDeliveryTime',
-				handlingTime: {
-					'@type': 'QuantitativeValue',
-					minValue: 0,
-					maxValue: 1,
-					unitCode: 'd',
-				},
-				transitTime: {
-					'@type': 'QuantitativeValue',
-					minValue: 0,
-					maxValue: 0,
-					unitCode: 'd',
-				},
-			},
-			shippingDestination: {
-				'@type': 'DefinedRegion',
-				addressCountry: 'US',
-			},
-		},
-		hasMerchantReturnPolicy: {
-			'@type': 'MerchantReturnPolicy',
-			returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-			applicableCountry: 'US',
+		itemOffered: {
+			'@type': 'Thing',
+			name: SITE.name,
+			description: SITE.description,
+			image: CF_IMAGES.hero,
+			category: 'Premium Domain Name',
 		},
 	},
 };
@@ -71,6 +49,7 @@ const product = {
 const organization = {
 	'@context': 'https://schema.org',
 	'@type': 'Organization',
+	'@id': `${SITE.url}#organization`,
 	name: SITE.name,
 	url: SITE.url,
 	logo: CF_IMAGES.hero,
@@ -84,5 +63,5 @@ const organization = {
 ---
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(website)} />
-<script type="application/ld+json" is:inline set:html={JSON.stringify(product)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(webPage)} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
