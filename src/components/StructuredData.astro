@@ -62,16 +62,8 @@ const product = {
 		},
 		hasMerchantReturnPolicy: {
 			'@type': 'MerchantReturnPolicy',
-			returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-			returnMethod: 'https://schema.org/ReturnByMail',
-			returnFees: 'https://schema.org/FreeReturn',
+			returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
 			applicableCountry: 'US',
-			merchantReturnDays: {
-				'@type': 'QuantitativeValue',
-				minValue: 0,
-				maxValue: 0,
-				unitCode: 'd',
-			},
 		},
 	},
 };
