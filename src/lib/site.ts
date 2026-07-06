@@ -12,7 +12,7 @@ export const SITE = {
 export const SALES_EMAIL = 'sales@desertrich.com';
 
 export const CF_IMAGES = {
-	hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/668523b4-17ba-495b-cb9b-a6dce4cc8600/public',
+	hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/49cd825d-d533-4755-1f24-9c1fd2786f00/public',
 	science: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/0ca3d9f3-d275-4cb1-f2ab-7e9f52ca1500/public',
 	brand: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/83be0a60-8638-45d7-125c-d95aa4503200/public',
 	accountHash: '-sPAUAWeA405NiWJ0SNIQA',
