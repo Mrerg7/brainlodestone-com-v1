@@ -29,7 +29,19 @@ export default {
 			return Response.redirect(url.toString(), 301);
 		}
 
-		return env.ASSETS.fetch(request);
+		const response = await env.ASSETS.fetch(request);
+
+		if (response.status === 404) {
+			const headers = new Headers(response.headers);
+			headers.set('X-Robots-Tag', 'noindex, nofollow');
+			return new Response(response.body, {
+				status: 404,
+				statusText: 'Not Found',
+				headers,
+			});
+		}
+
+		return response;
 	},
 } satisfies ExportedHandler<Env>;
 
