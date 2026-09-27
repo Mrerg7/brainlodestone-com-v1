@@ -1,8 +1,51 @@
 @import "tailwindcss";
 
+/* The original single-file build is kept in the repo for reference only — it
+ * must not be scanned as a template, or its retired slate/teal classes keep
+ * getting generated. */
+@source not "../../brainlodestonecom.html";
+
+/*
+ * Palette derived from the brand artwork: graphite slate slab, brass compass,
+ * steel field lines. Deliberately not the teal-on-slate default.
+ */
 @theme {
 	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 	--font-display: "Space Grotesk", "Inter", sans-serif;
+	--font-editorial: "Instrument Serif", ui-serif, Georgia, serif;
+
+	/* Graphite */
+	--color-ink-950: #07090c;
+	--color-ink-900: #0b0f14;
+	--color-ink-850: #10151c;
+	--color-ink-800: #141a23;
+	--color-ink-700: #212935;
+	--color-ink-600: #38424f;
+	--color-ink-500: #7a8698;
+	--color-ink-400: #98a2b3;
+	--color-ink-300: #b8c1cd;
+	--color-ink-200: #d7dde6;
+	--color-ink-100: #eef1f6;
+
+	/* Brass — primary accent */
+	--color-brass-50: #fff8ec;
+	--color-brass-100: #ffefd6;
+	--color-brass-200: #ffdcae;
+	--color-brass-300: #ffc482;
+	--color-brass-400: #f5a94e;
+	--color-brass-500: #e29130;
+	--color-brass-600: #c97a1e;
+	--color-brass-700: #a36116;
+	--color-brass-800: #7a4812;
+	--color-brass-900: #4e2f0c;
+	--color-brass-950: #261706;
+
+	/* Steel — secondary accent */
+	--color-steel-200: #cfe0f2;
+	--color-steel-300: #a8c6e8;
+	--color-steel-400: #7fa9d6;
+	--color-steel-500: #5a88be;
+	--color-steel-600: #43699a;
 }
 
 @layer base {
@@ -12,6 +55,18 @@
 
 	body {
 		font-family: var(--font-sans);
+		background-color: var(--color-ink-950);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	::selection {
+		background: var(--color-brass-400);
+		color: var(--color-ink-950);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-brass-400);
+		outline-offset: 3px;
 	}
 }
 
@@ -22,17 +77,17 @@
 	}
 
 	.premium-gradient {
-		background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+		background: linear-gradient(135deg, #0b0f14 0%, #141a23 100%);
 	}
 
 	.magnetic-accent {
-		color: #14b8a6;
+		color: var(--color-brass-400);
 	}
 
 	.glass {
-		background: rgba(15, 23, 42, 0.8);
+		background: rgba(11, 15, 20, 0.78);
 		backdrop-filter: blur(20px);
-		border: 1px solid rgba(148, 163, 184, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.07);
 	}
 
 	.hero-bg {
@@ -56,17 +111,20 @@
 	}
 
 	.benefit-card {
-		transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+		transition:
+			transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
 			box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.benefit-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+		box-shadow:
+			0 20px 25px -5px rgb(0 0 0 / 0.35),
+			0 8px 10px -6px rgb(0 0 0 / 0.35);
 	}
 
 	.nav-scrolled {
-		background: rgba(15, 23, 42, 0.97);
+		background: rgba(7, 9, 12, 0.96);
 		backdrop-filter: blur(24px);
 	}
 
@@ -81,6 +139,33 @@
 
 	.clean-divider {
 		height: 1px;
-		background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.2), transparent);
+		background: linear-gradient(
+			to right,
+			transparent,
+			rgba(245, 169, 78, 0.35),
+			transparent
+		);
+	}
+
+	.kicker-rule {
+		background: linear-gradient(
+			to right,
+			var(--color-brass-400),
+			transparent
+		);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
 	}
 }

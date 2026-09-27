@@ -40,4 +40,19 @@ const valuePillars = defineCollection({
 	}),
 });
 
-export const collections = { useCases, marketStats, trustPoints, valuePillars };
+const faqs = defineCollection({
+	loader: glob({ pattern: '**/*.json', base: './src/content/faqs' }),
+	schema: z.object({
+		question: z.string(),
+		answer: z.string(),
+		order: z.number(),
+	}),
+});
+
+export const collections = {
+	useCases,
+	marketStats,
+	trustPoints,
+	valuePillars,
+	faqs,
+};

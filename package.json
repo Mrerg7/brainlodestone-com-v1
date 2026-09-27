@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && npm run typecheck:worker && astro build",
+    "typecheck:worker": "wrangler types && tsc -p tsconfig.worker.json",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"

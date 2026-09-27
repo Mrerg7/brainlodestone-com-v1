@@ -1,5 +1,8 @@
 ---
-import { CF_IMAGES, SALES_EMAIL, SITE } from '../lib/site';
+import { getCollection } from 'astro:content';
+import { CF_IMAGES, PRICE, SALES_EMAIL, SITE } from '../lib/site';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
 
 const website = {
 	'@context': 'https://schema.org',
@@ -15,7 +18,7 @@ const webPage = {
 	'@context': 'https://schema.org',
 	'@type': 'WebPage',
 	'@id': SITE.url,
-	name: `${SITE.name} • Premium Domain For Acquisition`,
+	name: SITE.title,
 	url: SITE.url,
 	description: SITE.description,
 	inLanguage: 'en-US',
@@ -29,19 +32,20 @@ const webPage = {
 		'@type': 'Offer',
 		name: `${SITE.name} domain name`,
 		url: SITE.url,
-		priceCurrency: 'USD',
+		price: String(PRICE.amount),
+		priceCurrency: PRICE.currency,
 		availability: 'https://schema.org/InStock',
-		seller: {
-			'@type': 'Organization',
-			name: 'Desert Rich',
-			email: SALES_EMAIL,
-		},
 		itemOffered: {
 			'@type': 'Thing',
 			name: SITE.name,
 			description: SITE.description,
 			image: CF_IMAGES.hero,
 			category: 'Premium Domain Name',
+		},
+		seller: {
+			'@type': 'Organization',
+			name: 'Desert Rich',
+			email: SALES_EMAIL,
 		},
 	},
 };
@@ -52,7 +56,7 @@ const organization = {
 	'@id': `${SITE.url}#organization`,
 	name: SITE.name,
 	url: SITE.url,
-	logo: CF_IMAGES.hero,
+			logo: CF_IMAGES.hero,
 	contactPoint: {
 		'@type': 'ContactPoint',
 		contactType: 'domain acquisition',
@@ -60,8 +64,27 @@ const organization = {
 		availableLanguage: 'English',
 	},
 };
+
+const faqPage = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	'@id': `${SITE.url}#faq`,
+	mainEntity: faqs.map((faq) => ({
+		'@type': 'Question',
+		name: faq.data.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: faq.data.answer,
+		},
+	})),
+};
 ---
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(website)} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(webPage)} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
+{
+	faqs.length > 0 && (
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(faqPage)} />
+	)
+}

@@ -1,29 +1,46 @@
 export const SITE = {
 	name: 'brainlodestone.com',
 	domain: 'brainlodestone.com',
-	url: 'https://brainlodestone.com/',
+	url: 'https://brainlodestone.com',
+	title: 'brainlodestone.com — Premium TMS & Neurotech Domain For Sale',
 	tagline: 'The definitive digital address for the future of brain stimulation.',
 	description:
-		'Acquire brainlodestone.com — the perfect premium .com domain for Transcranial Magnetic Stimulation (TMS), neurotechnology, mental health clinics, and brain stimulation innovation. Instant brand authority in a rapidly growing market.',
+		'brainlodestone.com is a premium .com domain for sale — built for TMS clinics, neurotech and brain-stimulation brands. Escrow-protected transfer, flexible terms.',
 	locale: 'en_US',
 	year: 2026,
 } as const;
 
 export const SALES_EMAIL = 'sales@desertrich.com';
 
+export const PRICE = {
+	amount: 100000,
+	currency: 'USD',
+	display: '$100,000',
+} as const;
+
+export const INQUIRY_ENDPOINT = '/api/inquiry';
+
 export const CF_IMAGES = {
 	hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/49cd825d-d533-4755-1f24-9c1fd2786f00/public',
 	science: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/0ca3d9f3-d275-4cb1-f2ab-7e9f52ca1500/public',
-	brand: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/83be0a60-8638-45d7-125c-d95aa4503200/public',
 	accountHash: '-sPAUAWeA405NiWJ0SNIQA',
 } as const;
 
-/** Normalize any path to the site's canonical absolute URL (https, apex, trailing slash). */
+/**
+ * Normalize any path to the site's canonical absolute URL.
+ *
+ * The site canonicalizes to the apex host with **no trailing slash**
+ * (`https://brainlodestone.com`), and the sitemap + Worker redirects follow
+ * the same rule so Google never sees a canonical/redirect disagreement.
+ */
 export function getCanonicalUrl(pathname: string): string {
 	const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
-	const withTrailingSlash =
-		normalized === '/' || normalized.endsWith('/') ? normalized : `${normalized}/`;
-	return new URL(withTrailingSlash, SITE.url).href;
+	const withoutTrailingSlash =
+		normalized.length > 1 && normalized.endsWith('/')
+			? normalized.slice(0, -1)
+			: normalized;
+	const origin = SITE.url.replace(/\/$/, '');
+	return `${origin}${withoutTrailingSlash === '/' ? '' : withoutTrailingSlash}`;
 }
 
 export function acquisitionMailto(subject?: string, body?: string): string {

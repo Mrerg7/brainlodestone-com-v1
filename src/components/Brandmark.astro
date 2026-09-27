@@ -1,0 +1,52 @@
+---
+/**
+ * Original brand mark for brainlodestone.com: a compass rose over concentric
+ * magnetic field rings. Drawn as vector artwork so it stays crisp at 20px and
+ * scales to any size without shipping a raster asset.
+ */
+interface Props {
+	class?: string;
+	rings?: boolean;
+}
+
+const { class: className = 'w-6 h-6', rings = true } = Astro.props;
+---
+
+<svg
+	viewBox="0 0 48 48"
+	class={className}
+	fill="none"
+	aria-hidden="true"
+	focusable="false"
+>
+	{
+		rings && (
+			<>
+				<circle
+					cx="24"
+					cy="24"
+					r="22.25"
+					stroke="currentColor"
+					stroke-width="1"
+					stroke-dasharray="1.5 5"
+					opacity="0.4"
+				/>
+				<circle cx="24" cy="24" r="16.5" stroke="currentColor" stroke-width="1.5" opacity="0.8" />
+			</>
+		)
+	}
+	<!-- Cardinal ticks -->
+	<path
+		d="M24 1.75v4.5M46.25 24h-4.5M24 46.25v-4.5M1.75 24h4.5"
+		stroke="currentColor"
+		stroke-width="1.75"
+		stroke-linecap="round"
+	/>
+	<!-- Needle: north limb -->
+	<path d="M24 9 L20.5 24 L24 24 Z" fill="currentColor" />
+	<path d="M24 9 L27.5 24 L24 24 Z" fill="currentColor" opacity="0.42" />
+	<!-- Needle: south limb -->
+	<path d="M24 39 L27.5 24 L24 24 Z" fill="currentColor" />
+	<path d="M24 39 L20.5 24 L24 24 Z" fill="currentColor" opacity="0.42" />
+	<circle cx="24" cy="24" r="1.9" fill="currentColor" />
+</svg>

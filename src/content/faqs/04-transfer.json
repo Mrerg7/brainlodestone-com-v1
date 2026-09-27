@@ -1,0 +1,5 @@
+{
+	"question": "How long does the transfer take?",
+	"answer": "Most transfers complete within 5 to 7 days. The domain is unlocked and the authorization code is released as soon as escrow is funded; the gaining registrar then completes the push. Transfers between Cloudflare Registrar accounts are often faster.",
+	"order": 4
+}

@@ -1,0 +1,80 @@
+---
+/**
+ * Original decorative motif: a compass rosette with magnetic field lobes.
+ * Used as a low-opacity watermark so the identity survives on sections that
+ * carry no photography.
+ */
+interface Props {
+	class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const minorTicks = Array.from({ length: 72 }, (_, i) => i * 5);
+const majorTicks = Array.from({ length: 12 }, (_, i) => i * 30);
+---
+
+<svg
+	viewBox="0 0 640 640"
+	class={className}
+	fill="none"
+	aria-hidden="true"
+	focusable="false"
+>
+	<g stroke="currentColor">
+		<circle cx="320" cy="320" r="312" stroke-width="1.5" opacity="0.3" />
+		<circle
+			cx="320"
+			cy="320"
+			r="252"
+			stroke-width="1.5"
+			stroke-dasharray="3 13"
+			opacity="0.45"
+		/>
+		<circle cx="320" cy="320" r="192" stroke-width="1.5" opacity="0.3" />
+		<circle
+			cx="320"
+			cy="320"
+			r="132"
+			stroke-width="1.5"
+			stroke-dasharray="3 13"
+			opacity="0.45"
+		/>
+		<circle cx="320" cy="320" r="74" stroke-width="2" opacity="0.5" />
+
+		{
+			minorTicks.map((deg) => (
+				<line
+					x1="320"
+					y1="12"
+					x2="320"
+					y2="30"
+					stroke-width="2"
+					stroke-linecap="round"
+					opacity="0.4"
+					transform={`rotate(${deg} 320 320)`}
+				/>
+			))
+		}
+		{
+			majorTicks.map((deg) => (
+				<line
+					x1="320"
+					y1="4"
+					x2="320"
+					y2="52"
+					stroke-width="3"
+					stroke-linecap="round"
+					opacity="0.65"
+					transform={`rotate(${deg} 320 320)`}
+				/>
+			))
+		}
+
+		<!-- Magnetic field lobes -->
+		<path d="M320 246 Q 512 320 320 394" stroke-width="2" opacity="0.3" />
+		<path d="M320 246 Q 128 320 320 394" stroke-width="2" opacity="0.3" />
+		<path d="M320 214 Q 596 320 320 426" stroke-width="2" stroke-dasharray="6 10" opacity="0.25" />
+		<path d="M320 214 Q 44 320 320 426" stroke-width="2" stroke-dasharray="6 10" opacity="0.25" />
+	</g>
+</svg>
